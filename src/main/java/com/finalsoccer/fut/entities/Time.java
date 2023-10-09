@@ -1,15 +1,18 @@
 package com.finalsoccer.fut.entities;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.MapsId;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -22,9 +25,12 @@ public class Time implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String nome;
-	
 	@ManyToOne
+	@JoinColumn(name = "liga_id")
 	private Liga liga;
+	@JsonIgnore
+	@OneToMany(mappedBy = "time")
+	private List<Jogador> jogadores;
 	
 	public Time() {
 	}
@@ -58,6 +64,10 @@ public class Time implements Serializable {
 
 	public void setLiga(Liga liga) {
 		this.liga = liga;
+	}
+	
+	public List<Jogador> getJogadores() {
+		return jogadores;
 	}
 
 	@Override

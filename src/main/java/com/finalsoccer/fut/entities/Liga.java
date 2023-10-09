@@ -1,12 +1,16 @@
 package com.finalsoccer.fut.entities;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -19,6 +23,9 @@ public class Liga implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String nome;
+	@JsonIgnore
+	@OneToMany(mappedBy = "liga")
+	private List<Time> times;
 
 	public Liga() {
 	}
@@ -43,6 +50,10 @@ public class Liga implements Serializable {
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+	
+	public List<Time> getTimes() {
+		return times;
 	}
 
 	@Override

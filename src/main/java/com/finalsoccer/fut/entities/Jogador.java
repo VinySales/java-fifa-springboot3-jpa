@@ -7,6 +7,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToOne;
@@ -24,7 +25,8 @@ public class Jogador implements Serializable {
 	private String nome;
 	private Float altura;
 	private Float peso;
-	@OneToOne
+	@ManyToOne
+	@JoinColumn(name = "posicao_id")
 	private Posicao posicao;
 	private Integer ritmo;
 	private Integer drible;
@@ -32,12 +34,11 @@ public class Jogador implements Serializable {
 	private Integer defesa;
 	private Integer passe;
 	private Integer fisico;
-	@OneToOne
-	@MapsId
+	@ManyToOne
+	@JoinColumn(name = "time_id")
 	private Time time;
-	
-	@OneToOne
-	@MapsId
+	@ManyToOne
+	@JoinColumn(name = "liga_id")
 	private Liga liga;
 	
 	public Jogador() {
